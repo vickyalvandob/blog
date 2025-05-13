@@ -33,13 +33,13 @@ export function AppSidebar() {
 
     const mainNavItems: NavItem[] = user?.role === 'admin'? [
         {
-            title: 'Cagegories',
-            href: '/admin/categories',
+            title: 'Blogs',
+            href: '/admin/posts',
             icon: PenSquare,
         },
         {
-            title: 'Blogs',
-            href: '/admin/posts',
+            title: 'Categories',
+            href: '/admin/categories',
             icon: FolderPlus,
         },
     ]: user?.role === 'user'?  [
@@ -57,7 +57,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/dashboard" >
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

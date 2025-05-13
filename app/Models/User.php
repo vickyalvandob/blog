@@ -49,6 +49,6 @@ class User extends Authenticatable
 
      public function comments():HasMany
     {
-        return $this->belongsTo(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 }
