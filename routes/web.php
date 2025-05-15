@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -16,12 +17,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function() {
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('posts', PostController::class)->except(['show']);
 });
 
-Route::prefix('user')->name('user.')->group(function() {
+Route::prefix('user')->name('user.')->middleware(['auth', 'role:user'])->group(function() {
     Route::resource('posts', UserController::class)->except(['show']);
     Route::get('posts/{id}', [UserController::class, 'show'])->name('posts.show');
     Route::post('posts/{id}', [UserController::class, 'storeComment'])->name('posts.comments.store');
